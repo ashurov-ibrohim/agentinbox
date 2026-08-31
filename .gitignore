@@ -1,0 +1,35 @@
+# Sirlar (deploy'da Render Environment Variables orqali beriladi)
+.env
+.env.*.local
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Loglar / mahalliy DB (agar sqlite bilan test qilsangiz)
+*.log
+*.sqlite3
+*.db
+
+# Node (agar frontend shu repo ichida bo'lsa)
+node_modules/
+npm-debug.log*
+
+# DIQQAT: backend/static/ BU YERDA YO'Q — u qasddan tashlab qo'yilgan.
+# Frontend build (index.html, js, css) sherigim tomonidan shu papkaga
+# qo'yiladi va Render'da xizmat qilishi uchun commit qilinishi SHART.
