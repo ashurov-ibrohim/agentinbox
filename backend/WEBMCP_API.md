@@ -5,7 +5,7 @@ Bu hujjat frontend/WebMCP tomonidan chaqiriladigan endpointlarni tavsiflaydi. Sh
 ## Base URL
 
 - Local development: `http://localhost:8000`
-- Production (Render'ga deploy qilingandan keyin): keyinroq yangilanadi
+- Production (frontend backend bilan bitta serverda, `backend/static` orqali serve qilinganda): **relative URL** ishlating — masalan `fetch("/mcp/messages", ...)`. Bitta origin bo'lgani uchun `credentials: "include"` shart emas, lekin xavfsizlik uchun qoldirish mumkin.
 
 ## Autentifikatsiya (juda muhim)
 
@@ -15,7 +15,7 @@ Auth cookie orqali ishlaydi, Authorization header orqali emas:
 2. Google consent'dan keyin `GET /auth/callback` chaqiriladi, backend HttpOnly `access_token` cookie'sini o'rnatadi
 3. Shundan keyingi barcha `/mcp/*` so'rovlar shu cookie orqali avtomatik autentifikatsiya qilinadi
 
-**Frontend tomonidan `fetch()` chaqirayotganda har doim `credentials: "include"` qo'shish shart**, aks holda cookie yuborilmaydi:
+**Frontend tomonidan `fetch()` chaqirayotganda har doim `credentials: "include"` qo'shish shart** (local development'da, alohida portlarda ishlaganda), aks holda cookie yuborilmaydi:
 
 ```js
 fetch("http://localhost:8000/mcp/messages", {
@@ -127,7 +127,7 @@ document.modelContext.registerTool({
   description: "Foydalanuvchining o'qilmagan Gmail xatlarini qaytaradi",
   inputSchema: { type: "object", properties: {} },
   execute: async () => {
-    const res = await fetch("http://localhost:8000/mcp/messages?unread=true", {
+    const res = await fetch("/mcp/messages?unread=true", {
       credentials: "include"
     });
     return await res.json();
@@ -146,7 +146,7 @@ document.modelContext.registerTool({
     required: ["message_id", "text"]
   },
   execute: async ({ message_id, text }) => {
-    const res = await fetch(`http://localhost:8000/mcp/messages/${message_id}/reply`, {
+    const res = await fetch(`/mcp/messages/${message_id}/reply`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
