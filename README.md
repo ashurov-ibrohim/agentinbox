@@ -16,7 +16,7 @@ routers → services → repos → models   (SQLAlchemy 2.0, PostgreSQL)
 
 - **Auth**: Google OAuth2 login, JWT (HttpOnly cookie)
 - **Gmail integration**: list messages, get message detail, mark as read, reply within the correct thread (`In-Reply-To`/`References`)
-- **WebMCP REST API** (`/mcp/*`): 4 authenticated endpoints called by the browser agent — full reference: [`WEBMCP_API.md`](../WEBMCP_API.md)
+- **WebMCP REST API** (`/mcp/*`): 4 authenticated endpoints called by the browser agent — full reference: [`WEBMCP_API.md`](WEBMCP_API.md)
 
 ## Stack
 
