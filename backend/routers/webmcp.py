@@ -34,7 +34,7 @@ def get_message(message_id: str, current_user: Users = Depends(get_current_user)
 @router.post("/messages/{message_id}/read")
 def read_message(message_id: str, current_user: Users = Depends(get_current_user)):
     mark_as_read(current_user, message_id)
-    return {"message": "Xat o'qilgan deb belgilandi"}
+    return {"message": "Message marked as read"}
 
 
 @router.post("/messages/{message_id}/reply")
@@ -44,4 +44,4 @@ def reply_message(
     current_user: Users = Depends(get_current_user),
 ):
     result = send_reply(current_user, message_id, payload.text)
-    return {"message": "Javob yuborildi", "sent_id": result.get("id")}
+    return {"message": "Reply sent", "sent_id": result.get("id")}

@@ -46,4 +46,4 @@ def me(current_user: Users = Depends(get_current_user)):
 @router.post("/logout")
 def logout(response: Response):
     response.delete_cookie("access_token")
-    return {"message": "Muvaffaqiyatli chiqildi"}
+    return {"message": "Logged out successfully"}

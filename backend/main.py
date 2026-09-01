@@ -2,6 +2,7 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 import models
@@ -31,20 +32,23 @@ def health():
     return {"status": "ok", "service": "AgentInbox"}
 
 
-# Sherigim frontend build'ini shu papkaga qo'yadi: backend/static
-# (Vite bo'lsa vite.config.js'da build.outDir = "../backend/static" qilib qo'yish kifoya)
+# Frontend fayllari shu papkada: backend/static (index.html, style.css, app.js).
+# CSS/JS "/static/..." prefiksi bilan so'raladi (index.html'dagi havolalarga mos),
+# "/" esa index.html'ning o'zini qaytaradi.
 STATIC_DIR = Path(__file__).parent / "static"
 
-if STATIC_DIR.exists():
-    # html=True: "/" so'ralganda static/index.html qaytadi, boshqa static
-    # fayllar (js/css) ham shu papkadan to'g'ridan-to'g'ri xizmat qiladi.
-    app.mount("/", StaticFiles(directory=STATIC_DIR, html=True), name="static")
+if (STATIC_DIR / "index.html").exists():
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+    @app.get("/")
+    def index():
+        return FileResponse(STATIC_DIR / "index.html")
 else:
-    # Frontend hali qo'shilmagan bo'lsa (hozirgi holat) — oddiy JSON javob.
+    # Frontend hali qo'shilmagan bo'lsa — oddiy JSON javob.
     @app.get("/")
     def root():
         return {
             "status": "ok",
             "service": "AgentInbox",
-            "note": "frontend hali build qilib qo'yilmagan (backend/static bo'sh)",
+            "note": "frontend hali qo'shilmagan (backend/static/index.html topilmadi)",
         }

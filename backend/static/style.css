@@ -1,4 +1,19 @@
-/* Minimal starter styles — feel free to replace/extend everything below. */
+:root {
+  --accent: #4f46e5;
+  --accent-dark: #4338ca;
+  --accent-soft: #eef2ff;
+  --ink: #111827;
+  --ink-muted: #6b7280;
+  --ink-faint: #9ca3af;
+  --border: #e5e7eb;
+  --surface: #ffffff;
+  --bg: #f4f5fb;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.04);
+  --shadow-md: 0 8px 24px rgba(17, 24, 39, 0.06);
+  --shadow-lg: 0 16px 40px rgba(17, 24, 39, 0.10);
+}
 
 * {
   box-sizing: border-box;
@@ -6,134 +21,345 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  background: #f7f7f8;
-  color: #1a1a1a;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(1200px 400px at 10% -10%, #eef1ff 0%, transparent 60%),
+    radial-gradient(900px 300px at 100% 0%, #f3eaff 0%, transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
 }
 
-.topbar {
-  padding: 24px;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e5e5;
+button,
+a,
+textarea {
+  font: inherit;
 }
 
-.topbar h1 {
-  margin: 0 0 4px;
-  font-size: 22px;
-}
+/* ---------- Header ---------- */
 
-.tagline {
-  margin: 0;
-  color: #666;
-  font-size: 14px;
-}
-
-#app {
-  max-width: 720px;
-  margin: 32px auto;
-  padding: 0 16px;
-}
-
-.btn {
-  display: inline-block;
-  padding: 10px 18px;
-  background: #1a73e8;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: 600;
-}
-
-.btn-secondary {
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  background: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.user-bar {
+.header {
+  height: 76px;
+  padding: 0 32px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.user-bar img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-}
-
-.user-bar span {
-  flex: 1;
-  font-weight: 600;
-}
-
-.toolbar {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-#message-list {
-  list-style: none;
+.header h1 {
   margin: 0;
-  padding: 0;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 120%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-#message-list li {
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin-bottom: 8px;
+.header p {
+  margin: 2px 0 0;
+  color: var(--ink-muted);
+  font-size: 13px;
+}
+
+/* ---------- Layout ---------- */
+
+.container {
+  width: min(900px, calc(100% - 32px));
+  margin: 40px auto 64px;
+  animation: fade-in-up 0.4s ease both;
+}
+
+.hero {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, var(--accent-soft) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+.hero h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+.hero p {
+  color: var(--ink-muted);
+  margin: 0 0 22px;
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 18px;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(79, 70, 229, 0.15), 0 4px 12px rgba(79, 70, 229, 0.18);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.button:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.22), 0 10px 24px rgba(79, 70, 229, 0.22);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Secondary look for the header's own buttons (login / logout) */
+.auth-area .button {
+  background: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-area .button:hover {
+  background: #000;
+}
+
+/* ---------- Status banner ---------- */
+
+.status {
+  padding: 14px 16px;
+  background: var(--accent-soft);
+  border: 1px solid #dfe3ff;
+  color: var(--accent-dark);
+  border-radius: var(--radius-md);
+  margin-bottom: 18px;
+  font-size: 14px;
+  font-weight: 500;
+  animation: fade-in-up 0.25s ease both;
+}
+
+/* ---------- Auth area (top right) ---------- */
+
+.auth-area {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-info span {
+  color: var(--ink-muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ---------- Email list ---------- */
+
+.emails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.email {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  animation: fade-in-up 0.3s ease both;
+}
+
+.email:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: #dcdfff;
+}
+
+.email.unread {
+  border-left: 4px solid var(--accent);
 }
 
 .badge-unread {
   display: inline-block;
-  background: #1a73e8;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 8px;
+  background: var(--accent);
+  color: white;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 3px 9px;
   border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.email-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+
+.email-from {
+  font-size: 13px;
+  color: var(--ink-muted);
   margin-bottom: 6px;
 }
 
-.message-subject {
-  font-weight: 600;
-}
-
-.message-from {
-  color: #666;
-  font-size: 13px;
-  margin: 2px 0;
-}
-
-.message-snippet {
-  color: #444;
+.email-snippet {
   font-size: 14px;
+  color: #4b5563;
+  line-height: 1.4;
 }
 
-.msg-actions {
-  display: flex;
-  gap: 8px;
+.email-id {
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-top: 10px;
+  word-break: break-all;
+}
+
+/* ---------- Message detail panel ---------- */
+
+.message-details {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-top: 24px;
+  box-shadow: var(--shadow-lg);
+  animation: fade-in-up 0.25s ease both;
+}
+
+.close-button {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  border: 0;
+  background: var(--bg);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.close-button:hover {
+  background: var(--border);
+  color: var(--ink);
+}
+
+.message-subject {
+  font-size: 24px;
+  margin: 0 40px 20px 0;
+  letter-spacing: -0.01em;
+}
+
+.message-meta {
+  display: grid;
+  gap: 6px;
+  color: var(--ink-muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.message-meta strong {
+  color: var(--ink);
+}
+
+.message-body {
+  white-space: pre-wrap;
+  line-height: 1.7;
+  padding: 20px;
+  background: var(--bg);
+  border-radius: var(--radius-md);
+  font-size: 14.5px;
+}
+
+/* ---------- Reply box ---------- */
+
+.reply {
+  margin-top: 24px;
+}
+
+.reply textarea {
+  width: 100%;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.reply textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.reply .button {
   margin-top: 10px;
 }
 
-.reply-box {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+/* ---------- Motion ---------- */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.reply-textarea {
-  min-height: 70px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-family: inherit;
+/* ---------- Utility ---------- */
+/* Kept last on purpose: equal-specificity rules earlier in this file (like
+   .user-info { display: flex }) must NOT win over .hidden — CSS applies the
+   later rule when specificity ties, so this stays at the very end. */
+
+.hidden {
+  display: none !important;
 }
