@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentInbox</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>AgentInbox</h1>
+    <p class="tagline">AI-agent-powered Gmail manager, built on WebMCP</p>
+  </header>
+
+  <main id="app">
+    <!-- Logged-out state -->
+    <section id="logged-out" hidden>
+      <p>Sign in with Google to let your AI agent manage your inbox.</p>
+      <a class="btn" href="/auth/login">Sign in with Google</a>
+    </section>
+
+    <!-- Logged-in state -->
+    <section id="logged-in" hidden>
+      <div class="user-bar">
+        <img id="user-picture" alt="" />
+        <span id="user-name"></span>
+        <button id="logout-btn" class="btn-secondary">Log out</button>
+      </div>
+
+      <div class="toolbar">
+        <label>
+          <input type="checkbox" id="unread-only" checked />
+          Unread only
+        </label>
+        <button id="refresh-btn" class="btn-secondary">Refresh</button>
+      </div>
+
+      <ul id="message-list"></ul>
+    </section>
+
+    <section id="loading">
+      <p>Loading…</p>
+    </section>
+  </main>
+
+  <!-- TODO(frontend): style, layout, and any extra views (message detail, reply form) go here. -->
+  <script src="script.js"></script>
+</body>
+</html>

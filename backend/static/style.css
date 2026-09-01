@@ -1,0 +1,139 @@
+/* Minimal starter styles — feel free to replace/extend everything below. */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: #f7f7f8;
+  color: #1a1a1a;
+}
+
+.topbar {
+  padding: 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.topbar h1 {
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+
+.tagline {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+#app {
+  max-width: 720px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background: #1a73e8;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.btn-secondary {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.user-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.user-bar img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.user-bar span {
+  flex: 1;
+  font-weight: 600;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+#message-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#message-list li {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+}
+
+.badge-unread {
+  display: inline-block;
+  background: #1a73e8;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
+.message-subject {
+  font-weight: 600;
+}
+
+.message-from {
+  color: #666;
+  font-size: 13px;
+  margin: 2px 0;
+}
+
+.message-snippet {
+  color: #444;
+  font-size: 14px;
+}
+
+.msg-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.reply-box {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reply-textarea {
+  min-height: 70px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+}
