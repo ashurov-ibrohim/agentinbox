@@ -1,49 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AgentInbox</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <header class="topbar">
-    <h1>AgentInbox</h1>
-    <p class="tagline">AI-agent-powered Gmail manager, built on WebMCP</p>
+  <header class="header">
+    <div>
+      <h1>AgentInbox</h1>
+      <p>Gmail + WebMCP</p>
+    </div>
+
+    <a class="button" href="/auth/login">
+      Google bilan kirish
+    </a>
   </header>
 
-  <main id="app">
-    <!-- Logged-out state -->
-    <section id="logged-out" hidden>
-      <p>Sign in with Google to let your AI agent manage your inbox.</p>
-      <a class="btn" href="/auth/login">Sign in with Google</a>
+  <main class="container">
+    <section class="hero">
+      <h2>Xatlar</h2>
+      <p>Gmail xatlaringizni ko‘ring va boshqaring.</p>
+
+      <button id="loadEmailsButton" class="button">
+        Xatlarni yuklash
+      </button>
     </section>
 
-    <!-- Logged-in state -->
-    <section id="logged-in" hidden>
-      <div class="user-bar">
-        <img id="user-picture" alt="" />
-        <span id="user-name"></span>
-        <button id="logout-btn" class="btn-secondary">Log out</button>
+    <section id="status" class="status hidden"></section>
+
+    <section id="emails" class="emails"></section>
+
+    <section id="messageDetails" class="message-details hidden">
+      <button id="closeMessageButton" class="close-button">✕</button>
+
+      <div id="messageContent"></div>
+
+      <div class="reply">
+        <textarea
+          id="replyText"
+          placeholder="Javobingizni yozing..."
+          rows="5"
+        ></textarea>
+
+        <button id="replyButton" class="button">
+          Javob yuborish
+        </button>
       </div>
-
-      <div class="toolbar">
-        <label>
-          <input type="checkbox" id="unread-only" checked />
-          Unread only
-        </label>
-        <button id="refresh-btn" class="btn-secondary">Refresh</button>
-      </div>
-
-      <ul id="message-list"></ul>
-    </section>
-
-    <section id="loading">
-      <p>Loading…</p>
     </section>
   </main>
 
-  <!-- TODO(frontend): style, layout, and any extra views (message detail, reply form) go here. -->
-  <script src="script.js"></script>
+  <script type="module" src="/static/app.js"></script>
 </body>
 </html>
