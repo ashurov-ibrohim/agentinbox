@@ -14,7 +14,23 @@ from services.gmail_services import (
 
 MODEL_NAME = "gemini-3.7-flash"
 
-client = genai.Client(api_key=settings.GEMINI_API_KEY)
+_client: Optional["genai.Client"] = None
+
+
+def _get_client() -> "genai.Client":
+    """Gemini klientini faqat haqiqatan kerak bo'lganda (birinchi chaqiruvda)
+    yaratadi. Bu import vaqtida (ya'ni ilova ishga tushganda) GEMINI_API_KEY
+    bo'sh bo'lsa ham ilova qulamasligini ta'minlaydi - Gemini funksiyasi
+    hozircha ishlatilmayapti, shuning uchun kalit talab qilinmasligi kerak."""
+    global _client
+    if _client is None:
+        if not settings.GEMINI_API_KEY:
+            raise RuntimeError(
+                "GEMINI_API_KEY sozlanmagan. Chat/Gemini funksiyasidan "
+                "foydalanish uchun .env fayliga GEMINI_API_KEY qo'shing."
+            )
+        _client = genai.Client(api_key=settings.GEMINI_API_KEY)
+    return _client
 
 
 # --- Tool e'lonlari: Gemini'ga qaysi funksiyalarni "ko'rsatishimiz" kerakligi ---
@@ -129,7 +145,7 @@ def chat_with_agent(
         )
     contents.append(types.Content(role="user", parts=[types.Part(text=message)]))
 
-    response = client.models.generate_content(
+    response = _get_client().models.generate_content(
         model=MODEL_NAME, contents=contents, config=config
     )
 
@@ -151,7 +167,7 @@ def chat_with_agent(
         contents.append(response.candidates[0].content)
         contents.append(types.Content(role="user", parts=[function_response_part]))
 
-        response = client.models.generate_content(
+        response = _get_client().models.generate_content(
             model=MODEL_NAME, contents=contents, config=config
         )
 
